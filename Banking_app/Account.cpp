@@ -60,7 +60,7 @@ void Account::setActype(std::string input)
 	actype = input;
 }
 
-Account::Account()
+void Account::Accounts()
 {
 	balance = 0;
 	std::string t_name;

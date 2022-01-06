@@ -21,7 +21,7 @@ public:
 	void setActype(std::string input);
 	void History();
 
-	Account();
+	void Accounts();
 protected:// to be inherited in other classes 
 	float balance;
 	std::vector <Transaction> history;

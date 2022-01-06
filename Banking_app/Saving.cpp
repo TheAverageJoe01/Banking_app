@@ -4,7 +4,7 @@
 #include <string.h>
 #include "Saving.h"
 
-Saving::Saving()
+float Saving::Savings(float balance)
 {
 	std::cout << "Would like to open a ISA account(y/n)\n";
 	char User_input= 'o';

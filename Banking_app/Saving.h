@@ -11,7 +11,7 @@
 class Saving :public Interest_Earnings, public Account
 {
 public:
-	Saving();
+	float Savings(float balance);
 	bool getIsa();
 	void setIsa(bool input);
 	float getIr();

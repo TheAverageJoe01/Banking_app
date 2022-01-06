@@ -4,11 +4,12 @@
 #include <string.h>
 #include "Current.h"
 
-Current::Current()
+float Current::accountCurrent(float balance)
 {
 	overdraft = 500;
 	setActype("Current");
 	std::cout << "Your current account has been created\n";
+	return balance;
 }
 
 void Current::deposit(float amount)
@@ -34,40 +35,16 @@ void Current::deposit(float amount)
 
 void Current::withdraw(float amount)
 {
-	if (balance < 0)
+	if (balance - amount <= -500)
 	{
-		std::cout << "do you want to go into your overdraft y/n:\n";
-		char User_input = 'o';
-		while (User_input != 'y')
-		{
-			std::cin >> User_input;
-			User_input = islower(User_input);
-			if (User_input != 'y' && User_input != 'n')
-			{
-				std::cout << "please Input a valid answer:\n";
-			}
-			else if (User_input == 'n')
-			{
-				std::cout << "Withdrawl cancelled\n";
-			}
-			else
-			{
-				if (overdraft - amount < 0)
-				{
-					std::cout << "You do not have enough overdraft to cover this withdrawl:\n";
-				}
-				else
-				{
-					overdraft -= amount;
-				}
-			}
-		}
+		std::cout << "Exceeding overdraft:\n";
+
 	}
 	else
 	{
 		balance -= amount;
+		Transaction transaction("Withdraw", amount);
+		history.push_back(transaction);
+		std::cout << "withdrawed amount\n";
 	}
-	Transaction transaction("Withdraw", amount);
-	history.push_back(transaction);
-	std::cout << "withdrawed amount\n";
 }

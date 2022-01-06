@@ -10,7 +10,7 @@
 class Current :public Account
 {
 public:
-	Current();
+	float accountCurrent(float balance);
 	float overdraft;
 	void deposit(float amount);
 	void withdraw(float amount);
