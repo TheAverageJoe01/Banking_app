@@ -12,14 +12,12 @@ class Saving :public Interest_Earnings, public Account
 {
 public:
 	float Savings(float balance);
-	bool getIsa();
-	void setIsa(bool input);
+	float ISA(float balance);
 	float getIr();
 	void setIr(float input);
 	void deposit(float amount);
 	void withdraw(float amount);
 private:
-	bool ISA;
 	float interest_rate;
 
 };

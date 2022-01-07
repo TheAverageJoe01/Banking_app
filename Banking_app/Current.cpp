@@ -9,6 +9,8 @@ float Current::accountCurrent(float balance)
 	overdraft = 500;
 	setActype("Current");
 	std::cout << "Your current account has been created\n";
+	overdraft = 500;
+	std::cout << "overdraft: " << overdraft << "\n";
 	return balance;
 }
 

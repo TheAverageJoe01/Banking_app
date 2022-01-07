@@ -14,10 +14,13 @@ int main()
 	std::vector <std::string> parameters;
 	std::string usercommand;
 	bool F1 = false;
+	bool F2 = false;
+	bool F3 = false;
 	Current c;
 	Saving s;
 	float currentAccount;
 	float savingsAccount;
+	float isaAccount;
 	// you may also want to store a collection of opened accounts here
 
 	std::cout << "~~~ welcome to lincbank! ~~~" << std::endl;
@@ -62,6 +65,7 @@ int main()
 			std::string command1 = parameters[1];
 			std::string command2 = parameters[2];
 			float command2f = std::stof(command2);
+
 			if (command1 == "1" && F1 == true)
 			{
 				std::cout << "You have already made a curent account:\n";
@@ -73,13 +77,26 @@ int main()
 				F1 = true;
 			}
 
-			if (command1 == "2" && F1 == true)
+			if (command1 == "2" && F2 == true)
 			{
 				std::cout << "you already own a Savings account:\n";
 			}
-			if(command1 == "2" && F1 == false)
+			if(command1 == "2" && F2 == false)
 			{
 				savingsAccount = { s.Savings(command2f) };
+				std::cout << "balance: " << savingsAccount;
+				F2 = true;
+			}
+
+			if (command1 == "3" && F3 == true)
+			{
+				std::cout << "you already own a isa account:\n";
+			}
+			if (command1 == "3" && F3 == false)
+			{
+				isaAccount = { s.ISA(command2f) };
+				std::cout << "balance: " << isaAccount;
+				F3 = true;
 			}
 			
 
@@ -114,8 +131,8 @@ int main()
 
 	}
 
-	/*std::cout << "Press any key to quit...";
-	std::getchar();*/
+	std::cout << "Press any key to quit...";
+	std::getchar();
 
 
 }

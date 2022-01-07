@@ -6,47 +6,18 @@
 
 float Saving::Savings(float balance)
 {
-	std::cout << "Would like to open a ISA account(y/n)\n";
-	char User_input= 'o';
-	while (User_input != 'y')
-	{
-		std::cin >> User_input;
-		User_input = islower(User_input);
-		if (User_input != 'y' && User_input != 'n')
-		{
-			std::cout << "please Input a valid answer:";
-		}
-		else if (User_input == 'n')
-		{
-			setIsa(false);
-		}
-		else
-		{
-			setIsa(true);
-		}
-	}
-	if (getIsa() == false)
-	{
-		setIr(0.85);
-		std::cout << "your Savings account has been made:";
-	}
-	else
-	{
-		setIr(1.15);
-		std::cout << "your ISA account has been made:";
-	}
-	balance = 0;
+	setActype("Savings");
+	std::cout << "Your savings account has been created:\n";
+	setIr(0.85);
+	return balance;
 }
 
-
-bool Saving::getIsa()
+float Saving::ISA(float balance)
 {
-	return ISA;
-}
-
-void Saving::setIsa(bool input)
-{
-	ISA = input;
+	setActype("ISA");
+	std::cout << "Your ISA account has been created:\n";
+	setIr(1.15);
+	return balance;
 }
 
 float Saving::getIr()
