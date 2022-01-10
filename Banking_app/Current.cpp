@@ -4,10 +4,11 @@
 #include <string.h>
 #include "Current.h"
 
-Current::Current(float balance)
+Current::Current(float tempBalance)
 {
 	std::cout << "Your current account has been created\n";
 	overdraft = 500;
+	balance = tempBalance;
 	std::cout << "overdraft: " << overdraft << "\n";
 }
 

@@ -4,8 +4,9 @@
 #include <string.h>
 #include "Saving.h"
 
-Saving::Saving(float balance, bool isISA)
+Saving::Saving(float tempBalance, bool isISA)
 {
+	balance = tempBalance;
 	if (isISA)
 	{
 		std::cout << "Your ISA account has been created:\n";

@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Account.cpp" />
     <ClCompile Include="Banking_app.cpp" />
     <ClCompile Include="Current.cpp" />
     <ClCompile Include="Saving.cpp" />

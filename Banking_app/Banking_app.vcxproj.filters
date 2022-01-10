@@ -18,9 +18,6 @@
     <ClCompile Include="Banking_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Account.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Current.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
