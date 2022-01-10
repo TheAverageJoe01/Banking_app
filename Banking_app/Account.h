@@ -10,23 +10,13 @@
 class Account
 {
 public:
-	std::string toString(float input);
+	virtual std::string toString(std::string input) = 0;
 	virtual void deposit(float amount) = 0;// expecting no return 
 	virtual void withdraw(float amount) = 0;// making a pure virtual function 
-	std::string getAcname();
-	void setAcname(std::string input);
-	int getAcnumber();
-	void setAcnumber();
-	std::string getActype();
-	void setActype(std::string input);
-	void History();
-
-	void Accounts();
+	virtual void History() = 0;
+	virtual float getbalance() = 0;
+	virtual void setbalance() = 0;
 protected:// to be inherited in other classes 
 	float balance;
 	std::vector <Transaction> history;
-private:
-	std::string acname;
-	int acnumber;
-	std::string actype;
 };

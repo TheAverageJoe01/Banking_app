@@ -4,14 +4,11 @@
 #include <string.h>
 #include "Current.h"
 
-float Current::accountCurrent(float balance)
+Current::Current(float balance)
 {
-	overdraft = 500;
-	setActype("Current");
 	std::cout << "Your current account has been created\n";
 	overdraft = 500;
 	std::cout << "overdraft: " << overdraft << "\n";
-	return balance;
 }
 
 void Current::deposit(float amount)
@@ -49,4 +46,24 @@ void Current::withdraw(float amount)
 		history.push_back(transaction);
 		std::cout << "withdrawed amount\n";
 	}
+}
+
+float Current::getbalance()
+{
+	return balance;
+}
+
+void Current::setbalance(float amount)
+{
+	balance = amount;
+}
+
+void Current::History()
+{
+	std::cout << "poggers";
+}
+
+std::string Current::toString(std::string input)
+{
+	return input;
 }

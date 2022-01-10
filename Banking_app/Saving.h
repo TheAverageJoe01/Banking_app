@@ -11,12 +11,15 @@
 class Saving :public Interest_Earnings, public Account
 {
 public:
-	float Savings(float balance);
-	float ISA(float balance);
+	Saving(float balance, bool isISA);
 	float getIr();
 	void setIr(float input);
 	void deposit(float amount);
 	void withdraw(float amount);
+	float getbalance();
+	void setbalance(float amount);
+	std::string toString(std::string input);
+	void History();
 private:
 	float interest_rate;
 

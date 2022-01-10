@@ -15,12 +15,6 @@ int main()
 	std::string usercommand;
 	bool F1 = false;
 	bool F2 = false;
-	bool F3 = false;
-	Current c;
-	Saving s;
-	float currentAccount;
-	float savingsAccount;
-	float isaAccount;
 	// you may also want to store a collection of opened accounts here
 
 	std::cout << "~~~ welcome to lincbank! ~~~" << std::endl;
@@ -44,7 +38,7 @@ int main()
 
 		// define all commands as per the brief
 		std::string command = parameters[0];
-
+		std::vector<Account*> openedAccount;
 		if (command.compare("options") == 0)
 		{
 			// display the various commands to the user
@@ -72,31 +66,29 @@ int main()
 			}
 			if (command1 == "1" && F1 == false)
 			{
-				currentAccount = { c.accountCurrent(command2f) };
-				std::cout << "balance: " << currentAccount;
+				Account* current = new Current(command2f);
+				std::cout << "balance: " << current->getbalance();
+				openedAccount.push_back(current);
 				F1 = true;
 			}
 
-			if (command1 == "2" && F2 == true)
+			if(command1 == "2")
 			{
-				std::cout << "you already own a Savings account:\n";
-			}
-			if(command1 == "2" && F2 == false)
-			{
-				savingsAccount = { s.Savings(command2f) };
-				std::cout << "balance: " << savingsAccount;
-				F2 = true;
+				Account* saving = new Saving(command2f,false);
+				std::cout << "balance: " << saving->getbalance();
+				openedAccount.push_back(saving);
 			}
 
-			if (command1 == "3" && F3 == true)
+			if (command1 == "3" && F2 == true)
 			{
 				std::cout << "you already own a isa account:\n";
 			}
-			if (command1 == "3" && F3 == false)
+			if (command1 == "3" && F2 == false)
 			{
-				isaAccount = { s.ISA(command2f) };
-				std::cout << "balance: " << isaAccount;
-				F3 = true;
+				Account* Isa = new Saving(command2f, true);
+				std::cout << "balance: " << Isa->getbalance();
+				openedAccount.push_back(Isa);
+				F2= true;
 			}
 			
 
@@ -104,6 +96,7 @@ int main()
 		else if (command.compare("view") == 0)
 		{
 			// display an account according to an index (starting from 1)
+		
 			// alternatively, display all accounts if no index is provided
 		}
 		else if (command.compare("withdraw") == 0)

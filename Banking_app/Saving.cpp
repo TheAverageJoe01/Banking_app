@@ -4,21 +4,20 @@
 #include <string.h>
 #include "Saving.h"
 
-float Saving::Savings(float balance)
+Saving::Saving(float balance, bool isISA)
 {
-	setActype("Savings");
-	std::cout << "Your savings account has been created:\n";
-	setIr(0.85);
-	return balance;
+	if (isISA)
+	{
+		std::cout << "Your ISA account has been created:\n";
+		setIr(1.15);
+	}
+	else 
+	{
+		std::cout << "Your savings account has been created:\n";
+		setIr(0.85);
+	}
 }
 
-float Saving::ISA(float balance)
-{
-	setActype("ISA");
-	std::cout << "Your ISA account has been created:\n";
-	setIr(1.15);
-	return balance;
-}
 
 float Saving::getIr()
 {
@@ -46,5 +45,24 @@ void Saving::withdraw(float amount)
 	{
 		balance -= amount;
 	}
+}
+float Saving::getbalance()
+{
+	return balance;
+}
+
+void Saving::setbalance(float amount)
+{
+	balance = amount;
+}
+
+void Saving::History()
+{
+	std::cout << "poggers";
+}
+
+std::string Saving::toString(std::string input)
+{
+	return input;
 }
 

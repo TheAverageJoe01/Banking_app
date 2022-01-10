@@ -10,9 +10,12 @@
 class Current :public Account
 {
 public:
-	float accountCurrent(float balance);
+	Current(float balance);
 	float overdraft;
 	void deposit(float amount);
 	void withdraw(float amount);
-
+	float getbalance();
+	void setbalance(float amount);
+	std::string toString(std::string input);
+	void History();
 };
