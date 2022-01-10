@@ -68,7 +68,7 @@ int main()
 
 			if (command1 == "1" && F1 == true)
 			{
-				std::cout << "You have already made a curent account:\n";
+				std::cout << "You have already made a current account:\n";
 			}
 			if (command1 == "1" && F1 == false)
 			{
