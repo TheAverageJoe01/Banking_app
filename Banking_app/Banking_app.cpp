@@ -12,6 +12,7 @@
 int main()
 {
 	std::vector <std::string> parameters;
+	std::vector<Account*> openedAccount;
 	std::string usercommand;
 	bool F1 = false;
 	bool F2 = false;
@@ -38,7 +39,6 @@ int main()
 
 		// define all commands as per the brief
 		std::string command = parameters[0];
-		std::vector<Account*> openedAccount;
 		if (command.compare("options") == 0)
 		{
 			// display the various commands to the user
@@ -67,15 +67,16 @@ int main()
 			if (command1 == "1" && F1 == false)
 			{
 				Account* current = new Current(command2f);
-				std::cout << "balance: " << current->getbalance();
+				std::cout << "balance: \x9C" << current->getbalance();
 				openedAccount.push_back(current);
 				F1 = true;
 			}
+			// \x9C makes pound sign in c++ 
 
 			if(command1 == "2")
 			{
 				Account* saving = new Saving(command2f,false);
-				std::cout << "balance: " << saving->getbalance();
+				std::cout << "balance: \x9C" << saving->getbalance();
 				openedAccount.push_back(saving);
 			}
 
@@ -86,7 +87,7 @@ int main()
 			if (command1 == "3" && F2 == false)
 			{
 				Account* Isa = new Saving(command2f, true);
-				std::cout << "balance: " << Isa->getbalance();
+				std::cout << "balance: \x9C" << Isa->getbalance();
 				openedAccount.push_back(Isa);
 				F2= true;
 			}
@@ -95,9 +96,25 @@ int main()
 		}
 		else if (command.compare("view") == 0)
 		{
-			// display an account according to an index (starting from 1)
-		
+			if (parameters.size() > 2)
+			{
+				std::cout << "please input a valid number:";
+			}
 			// alternatively, display all accounts if no index is provided
+			else if (parameters.size() == 1)
+			{
+				for (auto i : openedAccount)
+				{
+					std::cout << "\x9C" << i->getbalance() << std::endl;
+					
+				}
+			}
+			// display an account according to an index (starting from 1)
+			else
+			{
+				std::cout << "\x9C" << openedAccount[stoi(parameters[1]) - 1]->getbalance() << std::endl;
+			}
+			
 		}
 		else if (command.compare("withdraw") == 0)
 		{
