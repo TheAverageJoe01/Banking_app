@@ -11,11 +11,13 @@ Saving::Saving(float tempBalance, bool isISA)
 	{
 		std::cout << "Your ISA account has been created:\n";
 		setIr(1.15);
+		overdraft = 0;
 	}
 	else 
 	{
 		std::cout << "Your savings account has been created:\n";
 		setIr(0.85);
+		overdraft = 0;
 	}
 }
 
@@ -34,17 +36,21 @@ void Saving::setIr(float input)
 void Saving::deposit(float amount)
 {
 	balance += amount;
+	std::cout << "Deposited Money\n";
 }
 
-void Saving::withdraw(float amount)
+bool Saving::withdraw(float amount)
 {
-	if (balance < 0)
+	if (balance-amount < 0)
 	{
 		std::cout << "There is not enough money in the savings account:\n";
+		return false;
 	}
 	else
 	{
 		balance -= amount;
+		std::cout << "withdrew amount\n";
+		return true;
 	}
 }
 float Saving::getbalance()

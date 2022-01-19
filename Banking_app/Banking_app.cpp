@@ -13,9 +13,11 @@ int main()
 {
 	std::vector <std::string> parameters;
 	std::vector<Account*> openedAccount;
+	int currentlyViewed;
 	std::string usercommand;
 	bool F1 = false;
 	bool F2 = false;
+	bool F3 = false;
 	// you may also want to store a collection of opened accounts here
 
 	std::cout << "~~~ welcome to lincbank! ~~~" << std::endl;
@@ -69,6 +71,7 @@ int main()
 				Account* current = new Current(command2f);
 				std::cout << "balance: \x9C" << current->getbalance();
 				openedAccount.push_back(current);
+				currentlyViewed = openedAccount.size() - 1;
 				F1 = true;
 			}
 			// \x9C makes pound sign in c++ 
@@ -78,6 +81,7 @@ int main()
 				Account* saving = new Saving(command2f,false);
 				std::cout << "balance: \x9C" << saving->getbalance();
 				openedAccount.push_back(saving);
+				currentlyViewed = openedAccount.size() - 1;
 			}
 
 			if (command1 == "3" && F2 == true)
@@ -89,6 +93,7 @@ int main()
 				Account* Isa = new Saving(command2f, true);
 				std::cout << "balance: \x9C" << Isa->getbalance();
 				openedAccount.push_back(Isa);
+				currentlyViewed = openedAccount.size() - 1;
 				F2= true;
 			}
 			
@@ -113,20 +118,32 @@ int main()
 			else
 			{
 				std::cout << "\x9C" << openedAccount[stoi(parameters[1]) - 1]->getbalance() << std::endl;
+				currentlyViewed = stoi(parameters[1]) - 1;
 			}
 			
 		}
 		else if (command.compare("withdraw") == 0)
 		{
 			// allow user to withdraw funds from an account
+			openedAccount[currentlyViewed]->withdraw(stof(parameters[1]));
 		}
 		else if (command.compare("deposit") == 0)
 		{
 			// allow user to deposit funds into an account
+			openedAccount[currentlyViewed]->deposit(stof(parameters[1]));
 		}
 		else if (command.compare("transfer") == 0)
 		{
 			// allow user to transfer funds between accounts
+			int source = stoi(parameters[1])-1;
+			int destination = stoi(parameters[2]) - 1;
+			float amount = stof(parameters[3]);
+			
+			if (openedAccount[source]->withdraw(amount)) 
+			{
+				openedAccount[destination]->deposit(amount);
+			}
+			
 			// i.e., a withdrawal followed by a deposit!
 		}
 		else if (command.compare("project") == 0)

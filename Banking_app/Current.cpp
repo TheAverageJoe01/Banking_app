@@ -33,11 +33,12 @@ void Current::deposit(float amount)
 	std::cout << "Deposited Money\n";
 }
 
-void Current::withdraw(float amount)
+bool Current::withdraw(float amount)
 {
 	if (balance - amount <= -500)
 	{
 		std::cout << "Exceeding overdraft:\n";
+		return false;
 
 	}
 	else
@@ -45,7 +46,8 @@ void Current::withdraw(float amount)
 		balance -= amount;
 		Transaction transaction("Withdraw", amount);
 		history.push_back(transaction);
-		std::cout << "withdrawed amount\n";
+		std::cout << "withdrew amount\n";
+		return true;
 	}
 }
 
