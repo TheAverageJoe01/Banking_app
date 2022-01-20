@@ -11,13 +11,11 @@ Saving::Saving(float tempBalance, bool isISA)
 	{
 		std::cout << "Your ISA account has been created:\n";
 		setIr(1.15);
-		overdraft = 0;
 	}
 	else 
 	{
 		std::cout << "Your savings account has been created:\n";
 		setIr(0.85);
-		overdraft = 0;
 	}
 }
 
