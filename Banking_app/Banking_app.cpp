@@ -7,7 +7,7 @@
 
 //to comment a large chunk of code press ctrl + k , then ctrl + c
 // to undo comments on a large chunk of code press ctrl + k , then ctrl + u
-
+bool isnumber(const std::string& str);
 
 int main()
 {
@@ -55,58 +55,96 @@ int main()
 		}
 		else if (command.compare("open") == 0)
 		{
-			// allow a user to open an account
-			// e.g., account* a = new savings(...);
+			if (parameters.size() > 3 || parameters.size() < 2)
+			{
+				std::cout << "Please input a valid answer\n";
+			}
+			else
+			{
+				// allow a user to open an account
+				// e.g., account* a = new savings(...);
 
-			std::string command1 = parameters[1];
-			std::string command2 = parameters[2];
-			float command2f = std::stof(command2);
+				if (parameters[1].compare("1") == 0)
+				{
+					if (F1 == true) 
+					{
+						std::cout << "You have already made a current account:\n";
+					}
+					else 
+					{
+						if (isnumber(parameters[2]) == true)
+						{
+							Account* current = new Current(std::stof(parameters[2]));
+							std::cout << "balance: \x9C" << current->getbalance();
+							openedAccount.push_back(current);
+							currentlyViewed = openedAccount.size() - 1;
+							F1 = true;
+						}
+						else
+						{
+							std::cout << "Please input a valid answer\n";
+						}
 
-			if (command1 == "1" && F1 == true)
-			{
-				std::cout << "You have already made a current account:\n";
-			}
-			if (command1 == "1" && F1 == false)
-			{
-				Account* current = new Current(command2f);
-				std::cout << "balance: \x9C" << current->getbalance();
-				openedAccount.push_back(current);
-				currentlyViewed = openedAccount.size() - 1;
-				F1 = true;
-			}
-			// \x9C makes pound sign in c++ 
+					}
+				}
+				// \x9C makes pound sign in c++ 
 
-			if(command1 == "2")
-			{
-				Account* saving = new Saving(command2f,false);
-				std::cout << "balance: \x9C" << saving->getbalance();
-				openedAccount.push_back(saving);
-				currentlyViewed = openedAccount.size() - 1;
-			}
+				else if (parameters[1].compare("2") == 0 )
+				{
+					if (isnumber(parameters[2]) == true)
+					{
+						Account* saving = new Saving(std::stof(parameters[2]), false);
+						std::cout << "balance: \x9C" << saving->getbalance();
+						openedAccount.push_back(saving);
+						currentlyViewed = openedAccount.size() - 1;
+					}
+					else
+					{
+						std::cout << "Please input a valid answer\n";
+					}
+				}
 
-			if (command1 == "3" && F2 == true)
-			{
-				std::cout << "you already own a isa account:\n";
+				else if (parameters[1].compare("3") == 0)
+				{
+					if (F2 == true)
+					{
+						std::cout << "you already own a isa account:\n";
+					}
+					else if (isnumber(parameters[2]) == true)
+					{
+						if (std::stof(parameters[2]) >= 500)
+						{
+							Account* Isa = new Saving(std::stof(parameters[2]), true);
+							std::cout << "balance: \x9C" << Isa->getbalance();
+							openedAccount.push_back(Isa);
+							currentlyViewed = openedAccount.size() - 1;
+							F2 = true;
+						}
+						else
+						{
+							std::cout << "Not enough money to make an ISA:";
+						}
+					}
+					else
+					{
+						std::cout << "Please input a valid answer\n";
+					}
+				}
+				else
+				{
+					std::cout << "please input a valid answer\n";
+				}
 			}
-			if (command1 == "3" && F2 == false)
-			{
-				Account* Isa = new Saving(command2f, true);
-				std::cout << "balance: \x9C" << Isa->getbalance();
-				openedAccount.push_back(Isa);
-				currentlyViewed = openedAccount.size() - 1;
-				F2= true;
-			}
-			
 
 		}
 		else if (command.compare("view") == 0)
 		{
 			if (parameters.size() > 2)
 			{
-				std::cout << "please input a valid number:";
+				std::cout << "please input a valid answer:";
 			}
 			// alternatively, display all accounts if no index is provided
-			else if (parameters.size() == 1)
+			else if (parameters.size() < 2)
 			{
 				for (auto i : openedAccount)
 				{
@@ -117,20 +155,56 @@ int main()
 			// display an account according to an index (starting from 1)
 			else
 			{
-				std::cout << "\x9C" << openedAccount[stoi(parameters[1]) - 1]->getbalance() << std::endl;
-				currentlyViewed = stoi(parameters[1]) - 1;
+				//Check for number
+				if (isnumber(parameters[1]) == true)
+				{
+					std::cout << "\x9C" << openedAccount[stoi(parameters[1]) - 1]->getbalance() << std::endl;
+					currentlyViewed = stoi(parameters[1]) - 1;
+				}
+				else
+				{
+					std::cout << "please input a valid answer:";
+				}
 			}
 			
 		}
 		else if (command.compare("withdraw") == 0)
 		{
-			// allow user to withdraw funds from an account
-			openedAccount[currentlyViewed]->withdraw(stof(parameters[1]));
+			if (parameters.size() != 2) 
+			{
+				std::cout << "please input a valid answer:";
+			}
+			else
+			{
+				// allow user to withdraw funds from an account
+				if (isnumber(parameters[1]) == true)
+				{
+					openedAccount[currentlyViewed]->withdraw(stof(parameters[1]));
+				}
+				else
+				{
+					std::cout << "please input a valid answer:";
+				}
+			}
 		}
 		else if (command.compare("deposit") == 0)
 		{
-			// allow user to deposit funds into an account
-			openedAccount[currentlyViewed]->deposit(stof(parameters[1]));
+			if (parameters.size() != 2)
+			{
+				std::cout << "please input a valid answer:";
+			}
+			else
+			{
+				// allow user to deposit funds into an account
+				if (isnumber(parameters[1]) == true)
+				{
+					openedAccount[currentlyViewed]->deposit(stof(parameters[1]));
+				}
+				else
+				{
+					std::cout << "please input a valid answer:";
+				}
+			}
 		}
 		else if (command.compare("transfer") == 0)
 		{
@@ -161,5 +235,15 @@ int main()
 	std::cout << "Press any key to quit...";
 	std::getchar();
 
+}
 
+bool isnumber(const std::string& str)
+{
+	{
+		for (char const& c : str) 
+		{
+			if (std::isdigit(c) == 0) return false;
+		}
+		return true;
+	}
 }
