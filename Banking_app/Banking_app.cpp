@@ -55,7 +55,7 @@ int main()
 		}
 		else if (command.compare("open") == 0)
 		{
-			if (parameters.size() > 3 || parameters.size() < 2)
+			if (parameters.size() !=3)
 			{
 				std::cout << "Please input a valid answer\n";
 			}
@@ -112,7 +112,7 @@ int main()
 					}
 					else if (isnumber(parameters[2]) == true)
 					{
-						if (std::stof(parameters[2]) >= 500)
+						if (std::stof(parameters[2]) >= 1000)
 						{
 							Account* Isa = new Saving(std::stof(parameters[2]), true);
 							std::cout << "balance: \x9C" << Isa->getbalance();
@@ -223,6 +223,16 @@ int main()
 		else if (command.compare("project") == 0)
 		{
 			// compute compound interest t years into the future
+
+			float years = stof(parameters[1]);
+			if (isnumber(parameters[1]) == true)
+			{
+
+			}
+			else
+			{
+				std::cout << "please input a valid answer:";
+			}
 		}
 		//else if (command.compare("search"))
 		//{

@@ -18,4 +18,8 @@ public:
 	std::string toString(std::string input);
 	void History();
 	float overdraft;
+	std::string getacType();
+	void setacType(std::string type);
+private:
+	std::string acType;
 };

@@ -17,6 +17,8 @@ public:
 	virtual void setbalance(float amount) = 0;
 	virtual std::string toString(std::string input) = 0;
 	virtual void History() = 0;
+	virtual std::string getacType() = 0;
+	virtual void setacType(std::string type) = 0;
 protected:// to be inherited in other classes 
 	float balance;
 	std::vector <Transaction> history;

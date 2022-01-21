@@ -10,6 +10,7 @@ Current::Current(float tempBalance)
 	overdraft = 500;
 	balance = tempBalance;
 	std::cout << "overdraft: " << overdraft << "\n";
+	setacType("current");
 }
 
 void Current::deposit(float amount)
@@ -69,4 +70,15 @@ void Current::History()
 std::string Current::toString(std::string input)
 {
 	return input;
+}
+
+void Current::setacType(std::string type)
+{
+	acType = type;
+}
+
+
+std::string Current::getacType()
+{
+	return acType;
 }
