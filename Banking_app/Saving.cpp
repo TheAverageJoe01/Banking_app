@@ -38,6 +38,8 @@ void Saving::deposit(float amount)
 {
 	balance += amount;
 	std::cout << "Deposited Money\n";
+	Transaction transaction("deposit", amount);
+	add_history(transaction);
 }
 
 bool Saving::withdraw(float amount)
@@ -51,6 +53,8 @@ bool Saving::withdraw(float amount)
 	{
 		balance -= amount;
 		std::cout << "withdrew amount\n";
+		Transaction transaction("Withdraw", amount);
+		add_history(transaction);
 		return true;
 	}
 }
@@ -64,9 +68,12 @@ void Saving::setbalance(float amount)
 	balance = amount;
 }
 
-void Saving::History()
+void Saving::showHistory()
 {
-	std::cout << "poggers";
+	for (Transaction trans : history)
+	{
+		std::cout << trans.toString();
+	}
 }
 
 std::string Saving::toString(std::string input)
@@ -86,8 +93,14 @@ std::string Saving::getacType()
 	return acType;
 }
 
-void Saving::computeInterest(int amount, float interest_rate, float years)
+float Saving::computeInterest(float years)
 {
 	float projection;
-	projection = pow(balance * (1 + (interest_rate / 12)), 12 * years);
+	projection = balance * pow((1 + (interest_rate / 12)), 12 * years);
+	return projection;
+}
+
+void Saving::add_history(Transaction transaction)
+{
+	history.push_back(transaction);
 }

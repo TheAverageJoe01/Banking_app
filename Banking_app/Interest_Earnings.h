@@ -9,5 +9,5 @@
 class Interest_Earnings
 {
 public:
-	virtual void computeInterest(int amount, float interest_rate, float year) = 0;
+	virtual float computeInterest(float year) = 0;
 };

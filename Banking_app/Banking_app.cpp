@@ -149,6 +149,9 @@ int main()
 				for (auto i : openedAccount)
 				{
 					std::cout << "\x9C" << i->getbalance() << std::endl;
+					std::cout << "~~~~~~~~~~~~~~~~~~\n";
+					std::cout << "History:\n";
+					
 					
 				}
 			}
@@ -211,11 +214,14 @@ int main()
 			// allow user to transfer funds between accounts
 			int source = stoi(parameters[1])-1;
 			int destination = stoi(parameters[2]) - 1;
-			float amount = stof(parameters[3]);
+			float input_amount = stof(parameters[3]);
 			
-			if (openedAccount[source]->withdraw(amount)) 
+			if (openedAccount[source]->withdraw(input_amount))
 			{
-				openedAccount[destination]->deposit(amount);
+				openedAccount[destination]->deposit(input_amount);
+				Transaction transaction("Transfer", input_amount);
+				openedAccount[destination]->add_history(transaction);
+				openedAccount[source]->add_history(transaction);
 			}
 			
 			// i.e., a withdrawal followed by a deposit!
@@ -225,20 +231,25 @@ int main()
 			// compute compound interest t years into the future
 
 			float years = stof(parameters[1]);
-			if (isnumber(parameters[1]) == true)
+			if (openedAccount[currentlyViewed]->getacType() == "current")
 			{
-
+				std::cout << "Current accounts do not have any interest:";
+			}
+			else if (openedAccount[currentlyViewed]->getacType() == "saving" || openedAccount[currentlyViewed]->getacType() == "ISA")
+			{
+				Saving* temp = dynamic_cast<Saving*>(openedAccount[currentlyViewed]);
+				std::cout << temp->computeInterest(years);
 			}
 			else
 			{
 				std::cout << "please input a valid answer:";
 			}
 		}
-		//else if (command.compare("search"))
-		//{
+		else if (command.compare("search"))
+		{
 		//	allow users to search their account history for a transaction
 		//  (this is a stretch task)
-		//}
+		}
 
 	}
 
@@ -247,12 +258,13 @@ int main()
 
 }
 
+// checking to see if variable is a number 
 bool isnumber(const std::string& str)
 {
 	{
-		for (char const& c : str) 
+		for (char const& i : str) 
 		{
-			if (std::isdigit(c) == 0) return false;
+			if (std::isdigit(i) == 0) return false;
 		}
 		return true;
 	}

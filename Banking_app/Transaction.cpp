@@ -1,9 +1,9 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include <sstream>
 #include <vector>
 #include <string.h>
-#include <iomanip>
-#include <chrono>
-#include<time.h>
+#include <ctime>
+#include <iostream>
 
 #include "Transaction.h"
 
@@ -16,9 +16,10 @@ Transaction::Transaction(std::string Input_Descr, float Input_value)
 }
 
 // return input as a string 
-std::string Transaction::toString(float input)
+std::string Transaction::toString()
 {
-	return std::to_string(input);
+	std::string ret = getDescr() + std::to_string(getValue()) + getTimeStamp();
+	return ret;
 }
 // returns description 
 std::string Transaction::getDescr()
@@ -32,13 +33,13 @@ void Transaction::setDescr(std::string input)
 
 char Transaction::getTimeStamp()
 {
-	//return ctime(&timeStamp);
-	return 'o';
+	return timeStamp;
 }
 
 void Transaction::setTimeStamp()
 {
-	timeStamp = time(0);
+	time_t timeStamp = time(0);
+	char* time = ctime(&timeStamp);
 }
 
 float Transaction::getValue()

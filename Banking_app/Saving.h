@@ -19,10 +19,11 @@ public:
 	float getbalance();
 	void setbalance(float amount);
 	std::string toString(std::string input);
-	void History();
+	void showHistory();
 	std::string getacType();
 	void setacType(std::string type);
-	void computeInterest(int amount, float interest_rate, float years);
+	float computeInterest( float years);
+	void add_history(Transaction transaction);
 private:
 	float interest_rate;
 	float overdraft;

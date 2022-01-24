@@ -16,10 +16,11 @@ public:
 	float getbalance();
 	void setbalance(float amount);
 	std::string toString(std::string input);
-	void History();
+	void showHistory();
 	float overdraft;
 	std::string getacType();
 	void setacType(std::string type);
+	void add_history(Transaction transaction);
 private:
 	std::string acType;
 };

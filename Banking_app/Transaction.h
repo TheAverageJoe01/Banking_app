@@ -1,4 +1,5 @@
 #pragma once
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -15,7 +16,7 @@ private:
 	float value;
 public:
 	Transaction(std::string Input_Descr, float Input_value);
-	std::string toString(float input);
+	std::string toString();
 	std::string getDescr();
 	void setDescr(std::string input);
 	char getTimeStamp();

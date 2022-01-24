@@ -30,7 +30,7 @@ void Current::deposit(float amount)
 		}
 	}
 	Transaction transaction("Deposit", amount);
-	history.push_back(transaction);
+	add_history(transaction);
 	std::cout << "Deposited Money\n";
 }
 
@@ -46,7 +46,7 @@ bool Current::withdraw(float amount)
 	{
 		balance -= amount;
 		Transaction transaction("Withdraw", amount);
-		history.push_back(transaction);
+		add_history(transaction);
 		std::cout << "withdrew amount\n";
 		return true;
 	}
@@ -62,9 +62,12 @@ void Current::setbalance(float amount)
 	balance = amount;
 }
 
-void Current::History()
+void Current::showHistory()
 {
-	std::cout << "poggers";
+	for (Transaction trans : history)
+	{
+		std::cout << trans.toString();
+	}
 }
 
 std::string Current::toString(std::string input)
@@ -81,4 +84,9 @@ void Current::setacType(std::string type)
 std::string Current::getacType()
 {
 	return acType;
+}
+
+void Current::add_history(Transaction transaction)
+{
+	history.push_back(transaction);
 }
