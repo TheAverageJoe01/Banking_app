@@ -21,7 +21,7 @@ int main()
 	// you may also want to store a collection of opened accounts here
 
 	std::cout << "~~~ welcome to lincbank! ~~~" << std::endl;
-	std::cout << "open type initial_deposit: open a current (1), savings (2) or ISA (3) account\nview[index]: view balance and recent transactions\nwithdraw sum : withdraw funds from most recently viewed account\ndeposit sum : deposit funds into most recently viewed account\ntransfer src dest sum : transfer funds between accounts\nproject years : project balance forward in time\nsearch value : searching history for values that match the input\nexit : close this application\noptions : view these options again";
+	std::cout << "open type initial_deposit: open a current (1), savings (2) or ISA (3) account\nview[index]: view balance and recent transactions\nwithdraw sum : withdraw funds from most recently viewed account\ndeposit sum : deposit funds into most recently viewed account\ntransfer src dest sum : transfer funds between accounts\nproject years : project balance forward in time\nsearch value : searching history for values that match the input of currently viewed account\nexit : close this application\noptions : view these options again";
 	while (usercommand != "exit")
 	{
 		parameters.clear(); // clear ready for next command
@@ -59,7 +59,7 @@ int main()
 				std::cout << "deposit - to deposit money to an account" << std::endl;
 				std::cout << "transfer - transfer money across accounts" << std::endl;
 				std::cout << "project - computes compound interest" << std::endl;
-				std::cout << "search - searches for a specific value in transaction history" << std::endl;
+				std::cout << "search - searches for a specific value in transaction history of currently viewed account" << std::endl;
 			}
 			else if (command.compare("open") == 0)
 			{
