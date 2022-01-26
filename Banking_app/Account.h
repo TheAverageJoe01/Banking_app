@@ -20,6 +20,7 @@ public:
 	virtual std::string getacType() = 0;
 	virtual void setacType(std::string type) = 0;
 	virtual void add_history(Transaction transaction) = 0;
+	virtual void searchTransaction( float amount) = 0;
 protected:// to be inherited in other classes 
 	float balance;
 	std::vector <Transaction> history;

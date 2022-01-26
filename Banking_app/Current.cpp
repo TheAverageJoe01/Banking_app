@@ -92,22 +92,48 @@ void Current::add_history(Transaction transaction)
 }
 
 
-//void Current::searchTransaction(std::string type, float amount)// using a bubble sort for stretch task
-//{
-//	bool sortComplete = false;
-//	std::vector<Transaction>SortHistory(history);
-//	while (sortComplete == false)
-//	{
-//		for (int i = 0; i < SortHistory.size() - 1; i++)
-//		{
-//			sortComplete = true;
-//			if (SortHistory[i] > SortHistory[i + 1])
-//			{
-//				Transaction temp = SortHistory[i];
-//				SortHistory[i] = SortHistory[i + 1];
-//				SortHistory[i + 1] = temp;
-//				sortComplete = false;
-//			}
-//		}
-//	}
-//}
+void Current::searchTransaction(float amount)// using a bubble sort for stretch task
+{
+	std::vector<Transaction>SortHistory(history);
+	for (int x = 0; x < SortHistory.size() - 1; x++)
+	{
+		for (int i = 0; i < SortHistory.size() - 1; i++)
+		{
+			if (SortHistory[i].getValue() > SortHistory[i + 1].getValue())
+			{
+				Transaction temp = SortHistory[i];
+				SortHistory[i] = SortHistory[i + 1];
+				SortHistory[i + 1] = temp;
+			}
+		}
+	}
+	int low = 0;//binary search
+	int high = SortHistory.size() - 1;
+	bool isfound = false;
+	while (low <= high)
+	{
+		int mid = (high + low) / 2;
+
+		if (SortHistory[mid].getValue() == amount)
+		{
+			std::cout << "value found:";
+			isfound = true;
+		}
+
+
+		if (SortHistory[mid].getValue() < amount)
+		{
+			low = mid + 1;
+		}
+
+		else
+		{
+			high = mid - 1;
+		}
+
+		if (isfound == false)
+		{
+			std::cout << "value is not found:";
+		}
+	}
+}

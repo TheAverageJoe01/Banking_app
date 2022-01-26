@@ -21,6 +21,7 @@ int main()
 	// you may also want to store a collection of opened accounts here
 
 	std::cout << "~~~ welcome to lincbank! ~~~" << std::endl;
+	std::cout << "open type initial_deposit: open a current (1), savings (2) or ISA (3) account\nview[index]: view balance and recent transactions\nwithdraw sum : withdraw funds from most recently viewed account\ndeposit sum : deposit funds into most recently viewed account\ntransfer src dest sum : transfer funds between accounts\nproject years : project balance forward in time\nsearch value : searching history for values that match the input\nexit : close this application\noptions : view these options again";
 	while (usercommand != "exit")
 	{
 		parameters.clear(); // clear ready for next command
@@ -58,6 +59,7 @@ int main()
 				std::cout << "deposit - to deposit money to an account" << std::endl;
 				std::cout << "transfer - transfer money across accounts" << std::endl;
 				std::cout << "project - computes compound interest" << std::endl;
+				std::cout << "search - searches for a specific value in transaction history" << std::endl;
 			}
 			else if (command.compare("open") == 0)
 			{
@@ -82,10 +84,11 @@ int main()
 							{
 								Transaction transaction("Starting balance", std::stof(parameters[2]));
 								Account* current = new Current(std::stof(parameters[2]));
-								std::cout << std::fixed << std::setprecision(2);
+								current->add_history(transaction);//adds satrting balance to history
+								std::cout << std::fixed << std::setprecision(2);// formates float in certain way
 								std::cout << "balance: \x9C" << current->getbalance();
-								openedAccount.push_back(current);
-								currentlyViewed = openedAccount.size() - 1;
+								openedAccount.push_back(current);//pushes back account to seperat list 
+								currentlyViewed = openedAccount.size() - 1;//sets this account as currently viewed
 								F1 = true;
 							}
 							else
@@ -101,8 +104,9 @@ int main()
 					{
 						if (isnumber(parameters[2]) == true)
 						{
-							Transaction transaction("Starting balance", std::stof(parameters[2]));
+							Transaction transaction("Starting balance", std::stof(parameters[2]));//converts parameter[2] into a float 
 							Account* saving = new Saving(std::stof(parameters[2]), false);
+							saving->add_history(transaction);
 							std::cout << std::fixed << std::setprecision(2);
 							std::cout << "balance: \x9C" << saving->getbalance();
 							openedAccount.push_back(saving);
@@ -126,6 +130,7 @@ int main()
 							{
 								Transaction transaction("Starting balance", std::stof(parameters[2]));
 								Account* Isa = new Saving(std::stof(parameters[2]), true);
+								Isa->add_history(transaction);
 								std::cout << std::fixed << std::setprecision(2);
 								std::cout << "balance: \x9C" << Isa->getbalance();
 								openedAccount.push_back(Isa);
@@ -159,7 +164,7 @@ int main()
 				else if (parameters.size() < 2)
 				{
 					std::cout << "History:\n";
-					for (auto i : openedAccount)
+					for (auto i : openedAccount)// iterates through openedaccounts vector
 					{
 						std::cout << i->getacType() << " Account " << "\x9C" << i->getbalance() << std::endl;
 						i->showHistory();
@@ -174,7 +179,7 @@ int main()
 					{
 						std::cout << openedAccount[stoi(parameters[1]) - 1]->getacType() <<" \x9C" << openedAccount[stoi(parameters[1]) - 1]->getbalance() << std::endl;
 						currentlyViewed = stoi(parameters[1]) - 1;
-						openedAccount[stoi(parameters[1]) - 1]->showHistory();
+						openedAccount[stoi(parameters[1]) - 1]->showHistory();//disapays history of chosen account
 					}
 					else
 					{
@@ -224,43 +229,76 @@ int main()
 			else if (command.compare("transfer") == 0)
 			{
 				// allow user to transfer funds between accounts
-				int source = stoi(parameters[1])-1;
-				int destination = stoi(parameters[2]) - 1;
-				float input_amount = stof(parameters[3]);
-			
-				if (openedAccount[source]->withdraw(input_amount))
+				if (parameters.size() != 3)
 				{
-					openedAccount[destination]->deposit(input_amount);
-					Transaction transaction("--Transfer", input_amount);
-					openedAccount[destination]->add_history(transaction);
-					openedAccount[source]->add_history(transaction);
+					std::cout << "please input a valid answer:";
 				}
+				else
+				{
+					int source = stoi(parameters[1]) - 1;
+					int destination = stoi(parameters[2]) - 1;
+					float input_amount = stof(parameters[3]);
+					if (openedAccount[source]->withdraw(input_amount))// withdraws from first account
+					{
+						openedAccount[destination]->deposit(input_amount);//deposits into second 
+						Transaction transaction("--Transfer", input_amount);
+						openedAccount[destination]->add_history(transaction);
+						openedAccount[source]->add_history(transaction);
+					}
+					else
+					{
+						std::cout << "please input a valid answer:";
+					}
+				}
+			
 			
 				// i.e., a withdrawal followed by a deposit!
 			}
 			else if (command.compare("project") == 0)
 			{
 				// compute compound interest t years into the future
-
-				float years = stof(parameters[1]);
-				if (openedAccount[currentlyViewed]->getacType() == "current")
-				{
-					std::cout << "Current accounts do not have any interest:";
-				}
-				else if (openedAccount[currentlyViewed]->getacType() == "savings" || openedAccount[currentlyViewed]->getacType() == "ISA")
-				{
-					Saving* temp = dynamic_cast<Saving*>(openedAccount[currentlyViewed]);
-					std::cout << temp->computeInterest(years);
-				}
-				else
+				if (parameters.size() != 2)
 				{
 					std::cout << "please input a valid answer:";
 				}
+				else 
+				{
+					float years = stof(parameters[1]);
+					if (openedAccount[currentlyViewed]->getacType() == "current")
+					{
+						std::cout << "Current accounts do not have any interest:";
+					}
+					else if (openedAccount[currentlyViewed]->getacType() == "savings" || openedAccount[currentlyViewed]->getacType() == "ISA")// checks to see if the account type is a savings or an isa
+					{
+						Saving* temp = dynamic_cast<Saving*>(openedAccount[currentlyViewed]);
+						std::cout << temp->computeInterest(years);
+					}
+					else
+					{
+						std::cout << "please input a valid answer:";
+					}
+				}
 			}
-			else if (command.compare("search"))
+			else if (command.compare("search") == 0)
 			{
 			//	allow users to search their account history for a transaction
 			//  (this is a stretch task)
+				if (parameters.size() != 2)
+				{
+					std::cout << "please input a valid answer:";
+				}
+				else
+				{
+					// allow user to withdraw funds from an account
+					if (isnumber(parameters[1]) == true)
+					{
+						openedAccount[currentlyViewed]->searchTransaction(stof(parameters[1]));
+					}
+					else
+					{
+						std::cout << "please input a valid answer:";
+					}
+				}
 			}
 		}
 

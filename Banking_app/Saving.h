@@ -24,6 +24,7 @@ public:
 	void setacType(std::string type);
 	float computeInterest( float years);
 	void add_history(Transaction transaction);
+	void searchTransaction(float amount);
 private:
 	float interest_rate;
 	float overdraft;
