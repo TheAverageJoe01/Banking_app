@@ -10,6 +10,7 @@
 class Current :public Account
 {
 public:
+	//void searchTransaction(std::string type, float amount);
 	Current(float balance);
 	void deposit(float amount);
 	bool withdraw(float amount);

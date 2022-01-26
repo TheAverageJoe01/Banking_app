@@ -6,21 +6,20 @@
 #include <string.h>
 #include <iomanip>
 #include <chrono>
-#include<time.h>
+
 
 class Transaction
 {
 private:
 	std::string descr;
-	time_t timeStamp;
+	std::string timeStamp;
 	float value;
 public:
 	Transaction(std::string Input_Descr, float Input_value);
 	std::string toString();
 	std::string getDescr();
 	void setDescr(std::string input);
-	char getTimeStamp();
-	void setTimeStamp();
+	std::string TimeStamp();
 	float getValue();
 	void setValue(float input);
 };

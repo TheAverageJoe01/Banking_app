@@ -2,7 +2,8 @@
 #include <sstream>
 #include <vector>
 #include <string.h>
-#include <ctime>
+#include <iostream>
+#include <chrono>
 #include <iostream>
 
 #include "Transaction.h"
@@ -12,13 +13,13 @@ Transaction::Transaction(std::string Input_Descr, float Input_value)
 {
 	setDescr(Input_Descr);
 	setValue(Input_value);
-	setTimeStamp();
+	timeStamp = TimeStamp();
 }
 
 // return input as a string 
-std::string Transaction::toString()
+std::string Transaction::toString()// turning the stored history into a string
 {
-	std::string ret = getDescr() + std::to_string(getValue()) + getTimeStamp();
+	std::string ret = getDescr() +":" + " " + std::to_string(getValue()) +" " + "on" + " " + timeStamp;
 	return ret;
 }
 // returns description 
@@ -31,15 +32,11 @@ void Transaction::setDescr(std::string input)
 	descr = input;
 }
 
-char Transaction::getTimeStamp()
+std::string Transaction::TimeStamp()
 {
+	std::time_t newTimeStamp = std::time(nullptr);
+	timeStamp = std::asctime(std::localtime(&newTimeStamp));// takes local pc time
 	return timeStamp;
-}
-
-void Transaction::setTimeStamp()
-{
-	time_t timeStamp = time(0);
-	char* time = ctime(&timeStamp);
 }
 
 float Transaction::getValue()

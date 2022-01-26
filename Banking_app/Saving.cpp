@@ -2,6 +2,7 @@
 #include <sstream>
 #include <vector>
 #include <string.h>
+#include <math.h>
 #include "Saving.h"
 
 Saving::Saving(float tempBalance, bool isISA)
@@ -11,13 +12,13 @@ Saving::Saving(float tempBalance, bool isISA)
 	{
 		std::cout << "Your ISA account has been created:\n";
 		setIr(1.15);
-		setacType("saving");
+		setacType("ISA");
 	}
 	else 
 	{
 		std::cout << "Your savings account has been created:\n";
 		setIr(0.85);
-		setacType("ISA");
+		setacType("savings");
 
 	}
 }
@@ -38,7 +39,7 @@ void Saving::deposit(float amount)
 {
 	balance += amount;
 	std::cout << "Deposited Money\n";
-	Transaction transaction("deposit", amount);
+	Transaction transaction("--deposit", amount);
 	add_history(transaction);
 }
 
@@ -53,7 +54,7 @@ bool Saving::withdraw(float amount)
 	{
 		balance -= amount;
 		std::cout << "withdrew amount\n";
-		Transaction transaction("Withdraw", amount);
+		Transaction transaction("--Withdraw", amount);
 		add_history(transaction);
 		return true;
 	}
@@ -70,9 +71,9 @@ void Saving::setbalance(float amount)
 
 void Saving::showHistory()
 {
-	for (Transaction trans : history)
+	for (Transaction transaction : history)
 	{
-		std::cout << trans.toString();
+		std::cout << transaction.toString();
 	}
 }
 
@@ -96,7 +97,7 @@ std::string Saving::getacType()
 float Saving::computeInterest(float years)
 {
 	float projection;
-	projection = balance * pow((1 + (interest_rate / 12)), 12 * years);
+	projection = balance * pow((1 + (interest_rate / 100)), years);
 	return projection;
 }
 

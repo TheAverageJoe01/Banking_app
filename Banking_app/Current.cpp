@@ -29,9 +29,9 @@ void Current::deposit(float amount)
 			balance += t_amount;
 		}
 	}
-	Transaction transaction("Deposit", amount);
-	add_history(transaction);
+	Transaction transaction("--Deposit", amount);
 	std::cout << "Deposited Money\n";
+	add_history(transaction);
 }
 
 bool Current::withdraw(float amount)
@@ -45,9 +45,9 @@ bool Current::withdraw(float amount)
 	else
 	{
 		balance -= amount;
-		Transaction transaction("Withdraw", amount);
-		add_history(transaction);
+		Transaction transaction("--Withdraw", amount);
 		std::cout << "withdrew amount\n";
+		add_history(transaction);
 		return true;
 	}
 }
@@ -64,9 +64,9 @@ void Current::setbalance(float amount)
 
 void Current::showHistory()
 {
-	for (Transaction trans : history)
+	for (Transaction transaction : history)
 	{
-		std::cout << trans.toString();
+		std::cout << transaction.toString();
 	}
 }
 
@@ -90,3 +90,24 @@ void Current::add_history(Transaction transaction)
 {
 	history.push_back(transaction);
 }
+
+
+//void Current::searchTransaction(std::string type, float amount)// using a bubble sort for stretch task
+//{
+//	bool sortComplete = false;
+//	std::vector<Transaction>SortHistory(history);
+//	while (sortComplete == false)
+//	{
+//		for (int i = 0; i < SortHistory.size() - 1; i++)
+//		{
+//			sortComplete = true;
+//			if (SortHistory[i] > SortHistory[i + 1])
+//			{
+//				Transaction temp = SortHistory[i];
+//				SortHistory[i] = SortHistory[i + 1];
+//				SortHistory[i + 1] = temp;
+//				sortComplete = false;
+//			}
+//		}
+//	}
+//}
