@@ -314,7 +314,7 @@ int main()
 bool isnumber(const std::string& str)
 {
 	{
-		for (char const& i : str) 
+		for (char const& i : str) // checking char for number returning a bool
 		{
 			if (std::isdigit(i) == 0) return false;
 		}
